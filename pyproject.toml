@@ -1,0 +1,57 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "handwritten-digits"
+version = "0.1.0"
+description = "Handwritten Digit Recognition (MNIST) with PyTorch, FastAPI, and src/ layout"
+authors = [{ name = "Mobin Yousefi", email = "" }]
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.9"
+dependencies = [
+  "torch>=2.2",
+  "torchvision>=0.17",
+  "torchaudio; platform_system != 'Windows'",  # optional on Windows
+  "numpy>=1.24",
+  "pillow>=10.0",
+  "scikit-learn>=1.3",
+  "matplotlib>=3.7",
+  "tqdm>=4.66",
+  "click>=8.1",
+  "rich>=13.7",
+  "fastapi>=0.110",
+  "uvicorn[standard]>=0.27",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=7.4",
+  "pytest-cov>=4.1",
+  "ruff>=0.5.0",
+  "black>=24.3.0",
+  "mypy>=1.9.0",
+]
+
+[project.scripts]
+hwr-train = "handwritten_digits.train:main"
+hwr-eval = "handwritten_digits.evaluate:main"
+hwr-predict = "handwritten_digits.predict:main"
+hwr-serve = "handwritten_digits.serve:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+select = ["E","F","I","UP","B","C4"]
+
+[tool.black]
+line-length = 100
+
+[tool.pytest.ini_options]
+addopts = "-q"
